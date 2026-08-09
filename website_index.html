@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Patrick Raymond Costa — Astronomy &amp; Instrumentation</title>
+<meta name="description" content="Portfolio of Patrick Raymond Costa: astronomy research, instrumentation projects, and thesis work.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#070b15;
+    --panel:#0d1424;
+    --panel-2:#101a2e;
+    --line:#1c2740;
+    --line-soft:#141d31;
+    --text:#e7ebf5;
+    --dim:#93a2bf;
+    --faint:#5c6b8a;
+    --gold:#e5b96e;
+    --gold-dim:#a9884f;
+    --max:1080px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:"Instrument Sans",system-ui,sans-serif;
+    font-size:16.5px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--gold);color:var(--bg)}
+
+  /* ---------- starfield ---------- */
+  #stars{position:fixed;inset:0;z-index:0;pointer-events:none}
+  .wrap{position:relative;z-index:1}
+
+  /* ---------- nav ---------- */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:10;
+    background:rgba(7,11,21,.82);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line-soft);
+  }
+  .nav-inner{
+    max-width:var(--max);margin:0 auto;padding:0 24px;
+    height:64px;display:flex;align-items:center;justify-content:space-between;
+  }
+  .mark{
+    font-family:"Space Mono",monospace;font-size:14px;letter-spacing:.18em;
+    color:var(--gold);text-decoration:none;
+  }
+  .nav-links{display:flex;gap:32px}
+  .nav-links a{
+    color:var(--dim);text-decoration:none;font-size:14.5px;letter-spacing:.04em;
+    transition:color .2s;
+  }
+  .nav-links a:hover{color:var(--text)}
+  .nav-links a.active{color:var(--gold)}
+  .nav-links a:focus-visible,.btn:focus-visible,.mark:focus-visible{
+    outline:2px solid var(--gold);outline-offset:3px;border-radius:2px;
+  }
+
+  /* ---------- pages ---------- */
+  .page{display:none;min-height:100vh;padding-top:64px}
+  .page.visible{display:block}
+  .container{max-width:var(--max);margin:0 auto;padding:0 24px}
+
+  /* ---------- mono labels (signature) ---------- */
+  .stamp{
+    font-family:"Space Mono",monospace;font-size:12px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--gold-dim);
+  }
+
+  /* ---------- home / hero ---------- */
+  .hero{
+    min-height:calc(100vh - 64px);
+    display:flex;flex-direction:column;justify-content:center;align-items:center;
+    text-align:center;position:relative;padding:64px 24px;
+  }
+  .reticle{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    width:min(640px,92vw);height:min(640px,92vw);
+    pointer-events:none;opacity:.5;
+  }
+  .hero h1{
+    font-family:"Instrument Serif",serif;font-weight:400;
+    font-size:clamp(2.6rem,7vw,4.6rem);
+    line-height:1.08;letter-spacing:.01em;
+    max-width:14ch;
+  }
+  .hero .stamp{margin-bottom:22px}
+  .degrees{
+    margin-top:34px;display:flex;flex-direction:column;gap:12px;
+  }
+  .degree{
+    display:flex;align-items:baseline;gap:14px;justify-content:center;flex-wrap:wrap;
+    color:var(--dim);font-size:15.5px;
+  }
+  .degree .abbr{
+    font-family:"Space Mono",monospace;color:var(--gold);font-size:13.5px;
+    letter-spacing:.06em;white-space:nowrap;
+  }
+  .hero-actions{margin-top:46px;display:flex;gap:16px;flex-wrap:wrap;justify-content:center}
+  .btn{
+    display:inline-flex;align-items:center;gap:9px;
+    font-family:"Instrument Sans",sans-serif;font-size:14.5px;font-weight:500;
+    letter-spacing:.03em;text-decoration:none;cursor:pointer;
+    padding:11px 22px;border-radius:4px;border:1px solid var(--line);
+    color:var(--text);background:transparent;transition:border-color .2s,background .2s,color .2s;
+  }
+  .btn:hover{border-color:var(--gold-dim);color:var(--gold)}
+  .btn.solid{background:var(--gold);border-color:var(--gold);color:var(--bg)}
+  .btn.solid:hover{background:#efc784;border-color:#efc784;color:var(--bg)}
+  .scroll-hint{
+    position:absolute;bottom:28px;left:50%;transform:translateX(-50%);
+    color:var(--faint);font-family:"Space Mono",monospace;font-size:11px;letter-spacing:.2em;
+  }
+
+  /* ---------- section headers ---------- */
+  .section-head{padding:88px 0 44px;border-bottom:1px solid var(--line-soft);margin-bottom:56px}
+  .section-head h2{
+    font-family:"Instrument Serif",serif;font-weight:400;
+    font-size:clamp(2rem,4.5vw,3rem);margin-top:14px;line-height:1.15;
+  }
+  .section-head p.lede{color:var(--dim);max-width:60ch;margin-top:16px}
+
+  /* ---------- about ---------- */
+  .about-grid{
+    display:grid;grid-template-columns:280px 1fr;gap:56px;
+    padding-bottom:110px;align-items:start;
+  }
+  .portrait{
+    aspect-ratio:4/5;border:1px solid var(--line);border-radius:6px;
+    background:var(--panel);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;
+    color:var(--faint);font-family:"Space Mono",monospace;font-size:12px;letter-spacing:.12em;
+    text-align:center;padding:20px;
+  }
+  .portrait svg{opacity:.45}
+  .about-copy p{color:var(--dim);margin-bottom:1.2em;max-width:66ch}
+  .about-copy p:first-of-type{color:var(--text);font-size:18px}
+  .about-copy .placeholder-note{
+    border-left:2px solid var(--gold-dim);padding:4px 0 4px 18px;
+    color:var(--faint);font-size:14.5px;font-style:italic;
+  }
+
+  /* ---------- portfolio ---------- */
+  .projects{padding-bottom:110px;display:flex;flex-direction:column;gap:72px}
+  .project{
+    border:1px solid var(--line);border-radius:8px;background:var(--panel);
+    padding:40px 42px 42px;
+  }
+  .proj-top{
+    display:flex;align-items:flex-start;justify-content:space-between;
+    gap:24px;flex-wrap:wrap;margin-bottom:10px;
+  }
+  .proj-title h3{
+    font-family:"Instrument Serif",serif;font-weight:400;
+    font-size:clamp(1.5rem,3vw,2.1rem);line-height:1.2;margin-top:10px;
+  }
+  .dl{
+    flex-shrink:0;margin-top:6px;
+  }
+  .proj-body{
+    display:grid;grid-template-columns:1fr 400px;gap:44px;
+    margin-top:22px;align-items:start;
+  }
+  .proj-desc p{color:var(--dim);margin-bottom:1em}
+  .proj-desc .tools{
+    margin-top:18px;display:flex;gap:8px;flex-wrap:wrap;
+  }
+  .tag{
+    font-family:"Space Mono",monospace;font-size:11.5px;letter-spacing:.06em;
+    color:var(--dim);border:1px solid var(--line);border-radius:99px;
+    padding:4px 12px;
+  }
+  .video-slot{
+    aspect-ratio:16/9;border:1px solid var(--line);border-radius:6px;
+    background:var(--panel-2);overflow:hidden;position:relative;
+  }
+  .video-slot iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .video-ph{
+    position:absolute;inset:0;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;gap:12px;color:var(--faint);
+  }
+  .video-ph .play{
+    width:52px;height:52px;border:1px solid var(--line);border-radius:50%;
+    display:flex;align-items:center;justify-content:center;color:var(--gold-dim);
+  }
+  .video-ph span{font-family:"Space Mono",monospace;font-size:11px;letter-spacing:.16em}
+  .video-caption{
+    margin-top:10px;font-family:"Space Mono",monospace;font-size:11px;
+    letter-spacing:.1em;color:var(--faint);text-align:right;
+  }
+  .figures{margin-top:34px;border-top:1px solid var(--line-soft);padding-top:28px}
+  .figures .stamp{font-size:11px}
+  .fig-grid{
+    margin-top:18px;display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px;
+  }
+  .fig{
+    border:1px solid var(--line);border-radius:6px;background:var(--panel-2);
+    overflow:hidden;
+  }
+  .fig .fig-img{
+    aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;
+    color:var(--faint);
+  }
+  .fig img{width:100%;height:100%;object-fit:cover;display:block}
+  .fig figcaption{
+    padding:10px 14px;font-size:12.5px;color:var(--faint);
+    border-top:1px solid var(--line-soft);line-height:1.5;
+  }
+
+  /* ---------- footer ---------- */
+  footer{
+    border-top:1px solid var(--line-soft);padding:40px 24px 48px;
+    text-align:center;color:var(--faint);font-size:13.5px;
+  }
+  footer .stamp{display:block;margin-bottom:10px;font-size:11px}
+
+  /* ---------- responsive ---------- */
+  @media(max-width:860px){
+    .proj-body{grid-template-columns:1fr}
+    .video-caption{text-align:left}
+    .about-grid{grid-template-columns:1fr;gap:36px}
+    .portrait{max-width:300px}
+    .project{padding:28px 22px 30px}
+  }
+  @media(max-width:560px){
+    .nav-links{gap:20px}
+    .nav-links a{font-size:13px}
+  }
+  @media(prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    #stars{display:none}
+  }
+</style>
+</head>
+<body>
+
+<canvas id="stars" aria-hidden="true"></canvas>
+
+<div class="wrap">
+
+<nav>
+  <div class="nav-inner">
+    <a class="mark" href="#home">P·R·C</a>
+    <div class="nav-links">
+      <a href="#home" data-nav="home">Home</a>
+      <a href="#about" data-nav="about">About</a>
+      <a href="#portfolio" data-nav="portfolio">Portfolio</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ================= HOME ================= -->
+<section class="page" id="page-home">
+  <div class="hero">
+    <svg class="reticle" viewBox="0 0 600 600" aria-hidden="true">
+      <circle cx="300" cy="300" r="290" fill="none" stroke="#1c2740" stroke-width="1"/>
+      <circle cx="300" cy="300" r="218" fill="none" stroke="#141d31" stroke-width="1"/>
+      <line x1="300" y1="0" x2="300" y2="52" stroke="#1c2740" stroke-width="1"/>
+      <line x1="300" y1="548" x2="300" y2="600" stroke="#1c2740" stroke-width="1"/>
+      <line x1="0" y1="300" x2="52" y2="300" stroke="#1c2740" stroke-width="1"/>
+      <line x1="548" y1="300" x2="600" y2="300" stroke="#1c2740" stroke-width="1"/>
+    </svg>
+
+    <span class="stamp">Astronomy · Instrumentation · Research</span>
+    <h1>Patrick Raymond Costa</h1>
+
+    <div class="degrees">
+      <div class="degree">
+        <span class="abbr">B.Sc.</span>
+        <span>Physics and Astronomy — University of Washington</span>
+      </div>
+      <div class="degree">
+        <span class="abbr">M.Sc.</span>
+        <span>Astronomy and Instrumentation — Leiden University</span>
+      </div>
+    </div>
+
+    <div class="hero-actions">
+      <a class="btn solid" href="#portfolio">View portfolio</a>
+      <a class="btn" href="#about">About me</a>
+    </div>
+
+    <span class="scroll-hint">EST. FIELD OF VIEW</span>
+  </div>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section class="page" id="page-about">
+  <div class="container">
+    <div class="section-head">
+      <span class="stamp">About me</span>
+      <h2>Motivation, background, and where I'm headed</h2>
+    </div>
+
+    <div class="about-grid">
+      <div class="portrait">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+          <circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5"/>
+        </svg>
+        <span>PHOTO<br>PLACEHOLDER</span>
+      </div>
+
+      <div class="about-copy">
+        <p>I'm an astronomer working at the intersection of optical instrumentation, detectors, and observation — from photon-counting noise budgets to high-contrast imaging.</p>
+        <p class="placeholder-note">This is placeholder text. Replace the paragraphs in this section with your personal statement — your motivation, the arc of your research so far, and your goals. Two to four paragraphs works well at this width.</p>
+        <p>Second placeholder paragraph. Use this space to describe your path: undergraduate work, your master's research, and the questions that drive you.</p>
+        <p>Third placeholder paragraph. Close with where you're headed — the kind of instruments, science, or missions you want to work on next.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PORTFOLIO ================= -->
+<section class="page" id="page-portfolio">
+  <div class="container">
+    <div class="section-head">
+      <span class="stamp">Portfolio</span>
+      <h2>Selected projects</h2>
+      <p class="lede">Coursework, research, and thesis projects. Each entry includes a short video walkthrough and a downloadable archive of the associated code and notebooks.</p>
+    </div>
+
+    <div class="projects" id="project-list"><!-- rendered by script below --></div>
+  </div>
+</section>
+
+<footer>
+  <span class="stamp">52.16° N · 4.49° E</span>
+  © 2026 Patrick Raymond Costa
+</footer>
+
+</div><!-- /wrap -->
+
+<script>
+/* =====================================================================
+   PROJECTS
+   Add, remove, or reorder entries here — the page renders from this list.
+
+   Fields:
+     entry       short mono label shown above the title, e.g. "MSc thesis"
+     title       project title
+     desc        array of paragraphs (plain text)
+     tools       array of short tags, e.g. ["Python", "astropy"]
+     video       YouTube embed URL, e.g. "https://www.youtube.com/embed/VIDEO_ID"
+                 Leave as "" to show the placeholder.
+     videoLabel  small caption under the video
+     figures     array of {src, caption}. Leave src as "" for a placeholder box.
+     zip         path to the downloadable archive, e.g. "assets/code/thesis.zip"
+   ===================================================================== */
+const projects = [
+  {
+    entry: "MSc thesis · Leiden · 2026",
+    title: "Photon-counting noise budget for LEO satellite detection",
+    desc: [
+      "Placeholder description. A first-principles photon-counting noise-budget framework for detecting LEO satellites and reference stars with a small telescope, CMOS detector, and GNSS timing.",
+      "Replace this paragraph with two or three sentences on methods and results."
+    ],
+    tools: ["Python", "astropy", "stsynphot", "libRadtran"],
+    video: "",
+    videoLabel: "Video walkthrough · ~3 min",
+    figures: [
+      {src: "", caption: "Figure placeholder — e.g. limiting magnitude vs. exposure."},
+      {src: "", caption: "Figure placeholder — e.g. noise budget breakdown."}
+    ],
+    zip: "assets/code/thesis.zip"
+  },
+  {
+    entry: "Coursework · Adaptive optics",
+    title: "Predictive wavefront control with empirical orthogonal functions",
+    desc: [
+      "Placeholder description. Python reimplementation of the EOF predictive filter for adaptive optics wavefront control, following Guyon & Males (2017).",
+      "Replace with a short note on what the filter does and what you found."
+    ],
+    tools: ["Python", "numpy"],
+    video: "",
+    videoLabel: "Video walkthrough",
+    figures: [
+      {src: "", caption: "Figure placeholder — e.g. residual phase with and without prediction."}
+    ],
+    zip: "assets/code/eof-predictive-control.zip"
+  },
+  {
+    entry: "Coursework · High-contrast imaging",
+    title: "Coronagraph simulation and post-processing",
+    desc: [
+      "Placeholder description. Fourier-optics PSF simulation, coronagraph construction, and post-processing including angular differential imaging on archival data.",
+      "Replace with specifics on the instruments, datasets, and techniques."
+    ],
+    tools: ["Python", "Jupyter"],
+    video: "",
+    videoLabel: "Video walkthrough",
+    figures: [
+      {src: "", caption: "Figure placeholder."},
+      {src: "", caption: "Figure placeholder."},
+      {src: "", caption: "Figure placeholder."}
+    ],
+    zip: "assets/code/hci-coronagraphy.zip"
+  },
+  {
+    entry: "Research · Univ. of Washington",
+    title: "Exomoon detectability with Fisher information analysis",
+    desc: [
+      "Placeholder description. Detectability study for exomoons using Fisher information matrix analysis on top of an existing light-curve model.",
+      "Replace with a summary of the setup and the main takeaway."
+    ],
+    tools: ["Python"],
+    video: "",
+    videoLabel: "Video walkthrough",
+    figures: [
+      {src: "", caption: "Figure placeholder."}
+    ],
+    zip: "assets/code/exomoon-fisher.zip"
+  },
+  {
+    entry: "Research · Leiden",
+    title: "Photoevaporation of primordial atmospheres",
+    desc: [
+      "Placeholder description. Research-track project on the photoevaporation of primordial planetary atmospheres.",
+      "Replace with a couple of sentences on the modeling and results."
+    ],
+    tools: ["Python"],
+    video: "",
+    videoLabel: "Video walkthrough",
+    figures: [
+      {src: "", caption: "Figure placeholder."}
+    ],
+    zip: "assets/code/photoevaporation.zip"
+  },
+  {
+    entry: "Poster · Detection of light",
+    title: "EMCCDs vs. energy-resolving detectors for Habitable Worlds Observatory",
+    desc: [
+      "Placeholder description. Detector trade study comparing EMCCDs and energy-resolving detectors in the context of HWO coronagraph requirements.",
+      "Replace with the key trade-offs and your conclusion."
+    ],
+    tools: ["Poster", "Detector physics"],
+    video: "",
+    videoLabel: "Poster pitch · 4 min",
+    figures: [
+      {src: "", caption: "Figure placeholder — poster panel or key plot."}
+    ],
+    zip: "assets/code/hwo-detector-study.zip"
+  },
+  {
+    entry: "Project 07",
+    title: "Template entry — duplicate me",
+    desc: [
+      "Copy any block in the projects array in index.html to add a new entry. Every field is optional except the title."
+    ],
+    tools: ["Template"],
+    video: "",
+    videoLabel: "Video walkthrough",
+    figures: [
+      {src: "", caption: "Figure placeholder."}
+    ],
+    zip: "assets/code/project.zip"
+  }
+];
+
+/* ---------- render portfolio ---------- */
+function esc(s){const d=document.createElement("div");d.textContent=s;return d.innerHTML}
+
+function render(){
+  const list = document.getElementById("project-list");
+  list.innerHTML = projects.map((p,i)=>{
+    const n = String(i+1).padStart(2,"0");
+    const paras = p.desc.map(t=>`<p>${esc(t)}</p>`).join("");
+    const tags = (p.tools||[]).map(t=>`<span class="tag">${esc(t)}</span>`).join("");
+    const video = p.video
+      ? `<iframe src="${esc(p.video)}" title="${esc(p.title)} — video walkthrough" allowfullscreen loading="lazy"></iframe>`
+      : `<div class="video-ph">
+           <div class="play"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+           <span>VIDEO PLACEHOLDER</span>
+         </div>`;
+    const figs = (p.figures||[]).map(f=>`
+      <figure class="fig">
+        <div class="fig-img">${f.src
+          ? `<img src="${esc(f.src)}" alt="${esc(f.caption)}" loading="lazy">`
+          : `<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M3 17l6-5 4 3 4-4 4 4"/></svg>`}
+        </div>
+        <figcaption>${esc(f.caption)}</figcaption>
+      </figure>`).join("");
+    return `
+    <article class="project">
+      <div class="proj-top">
+        <div class="proj-title">
+          <span class="stamp">Entry ${n} — ${esc(p.entry)}</span>
+          <h3>${esc(p.title)}</h3>
+        </div>
+        <a class="btn dl" href="${esc(p.zip)}" download>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          Download code
+        </a>
+      </div>
+      <div class="proj-body">
+        <div class="proj-desc">${paras}<div class="tools">${tags}</div></div>
+        <div>
+          <div class="video-slot">${video}</div>
+          <div class="video-caption">${esc(p.videoLabel||"")}</div>
+        </div>
+      </div>
+      ${figs ? `<div class="figures"><span class="stamp">Figures</span><div class="fig-grid">${figs}</div></div>` : ""}
+    </article>`;
+  }).join("");
+}
+render();
+
+/* ---------- hash routing ---------- */
+const pages = ["home","about","portfolio"];
+function route(){
+  let h = (location.hash||"#home").replace("#","");
+  if(!pages.includes(h)) h = "home";
+  pages.forEach(p=>{
+    document.getElementById("page-"+p).classList.toggle("visible", p===h);
+    document.querySelectorAll(`[data-nav="${p}"]`).forEach(a=>a.classList.toggle("active", p===h));
+  });
+  window.scrollTo(0,0);
+}
+window.addEventListener("hashchange", route);
+route();
+
+/* ---------- starfield ---------- */
+(function(){
+  const c = document.getElementById("stars");
+  if(!c || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const ctx = c.getContext("2d");
+  let stars = [];
+  function resize(){
+    c.width = innerWidth; c.height = innerHeight;
+    const n = Math.floor(innerWidth*innerHeight/6500);
+    stars = Array.from({length:n},()=>({
+      x:Math.random()*c.width, y:Math.random()*c.height,
+      r:Math.random()*1.1+.2, p:Math.random()*Math.PI*2,
+      s:.15+Math.random()*.5
+    }));
+  }
+  function draw(t){
+    ctx.clearRect(0,0,c.width,c.height);
+    for(const st of stars){
+      const a = .25 + .45*Math.abs(Math.sin(t*.0004*st.s + st.p));
+      ctx.globalAlpha = a;
+      ctx.fillStyle = "#dfe6f4";
+      ctx.beginPath();
+      ctx.arc(st.x, st.y, st.r, 0, Math.PI*2);
+      ctx.fill();
+    }
+    requestAnimationFrame(draw);
+  }
+  addEventListener("resize", resize);
+  resize();
+  requestAnimationFrame(draw);
+})();
+</script>
+</body>
+</html>
