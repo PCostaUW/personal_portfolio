@@ -138,7 +138,10 @@
     background:var(--panel);
     display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;
     color:var(--faint);font-family:"Space Mono",monospace;font-size:12px;letter-spacing:.12em;
-    text-align:center;padding:20px;
+    text-align:center;padding:20px;overflow:hidden;
+  }
+  .portrait img{
+    width:100%;height:100%;object-fit:cover;border-radius:4px;
   }
   .portrait svg{opacity:.45}
   .about-copy p{color:var(--dim);margin-bottom:1.2em;max-width:66ch}
@@ -303,7 +306,10 @@
 
     <div class="about-grid">
       <div class="portrait">
-          <img src="me_and_leia.jpg" alt="Patrick Costa">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+          <circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5"/>
+        </svg>
+        <span>PHOTO<br>PLACEHOLDER</span>
       </div>
 
       <div class="about-copy">
