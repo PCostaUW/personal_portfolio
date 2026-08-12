@@ -367,15 +367,15 @@ const projects = [
     entry: "MSc thesis · Leiden · 2026",
     title: "Photon-counting noise budget for LEO satellite detection",
     desc: [
-      "Placeholder description. A first-principles photon-counting noise-budget framework for detecting LEO satellites and reference stars with a small telescope, CMOS detector, and GNSS timing.",
-      "Replace this paragraph with two or three sentences on methods and results."
+      "The centimeter-scale debris population in low Earth orbit is large enough to be hazardous at orbital velocities and largely invisible to operational radar at scales of around 10 cm. This thesis asks whether a small optical ground station can see into that gap. I build a first-principles photon-counting noise budget for an 8-inch Schmidt-Cassegrain at f/6.3 with an IMX432 CMOS detector operated in a millisecond-exposure synthetic-tracking regime from a dark Chilean site -- modeling the full chain from atmospheric transmission through throughput, quantum efficiency, read noise, dark current, and asky background.",
+      "The framework reduces both target classes to one noise budget, specialized to a sidereal stack for astrometric reference stars and a satellite-rate stack for the satellites themselves, and reports two figures of merit: limiting magnitude and minimum detectable effective cross-section. Calibrated against a CALSPEC Vega zero point of 20.34 ± 0.22 mag, it predicts limiting magnitudes of 14.7-15.8 for reference stars and 13.7-14.0 for LEO targets at realistic slew rates. Coupling reflectance models for four spacecraft sufrace materials gives minimum detectable diameters of roughly 0.7 to 8 cm."
     ],
-    tools: ["Python", "astropy", "stsynphot", "libRadtran"],
+    tools: ["Python", "astropy", "stsynphot", "libRadtran", "Gaia DR3"],
     video: "",
     videoLabel: "Video walkthrough · ~3 min",
     figures: [
-      {src: "", caption: "Figure placeholder — e.g. limiting magnitude vs. exposure."},
-      {src: "", caption: "Figure placeholder — e.g. noise budget breakdown."}
+      {src: "scaled_throughput.png", caption: "System throughput used throughout this work. This curve represents the as-built instrumental response before atmospheric attenuation."},
+      {src: "dmin_vs_phase_angle.png", caption: "Minimum detectable equivalent diameter as a function of Sun-satellite-observer phase angle for each of the four representative spacecraft surface materials, at a fixed altitude of 500 km and zenith pass. The shaded band marks the operational phase-angle range for twilight LEO observations."}
     ],
     zip: "assets/code/thesis.zip"
   },
