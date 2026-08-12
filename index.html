@@ -416,7 +416,8 @@ const projects = [
       {src: "scaled_throughput.png", caption: "System throughput used throughout this work. This curve represents the as-built instrumental response before atmospheric attenuation."},
       {src: "dmin_vs_phase_angle.png", caption: "Minimum detectable equivalent diameter as a function of Sun-satellite-observer phase angle for each of the four representative spacecraft surface materials, at a fixed altitude of 500 km and zenith pass. The shaded band marks the operational phase-angle range for twilight LEO observations."}
     ],
-    zip: "assets/code/thesis.zip"
+    file: "costa_masters_thesis.pdf",
+    fileLabel: "Download thesis (PDF)"
   },
   {
     entry: "Coursework · Adaptive optics",
@@ -541,10 +542,13 @@ function render(){
           <span class="stamp">Entry ${n} — ${esc(p.entry)}</span>
           <h3>${esc(p.title)}</h3>
         </div>
-        <a class="btn dl" href="${esc(p.zip)}" download>
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-          Download code
-        </a>
+        ${p.file ? `
+        <a class="btn dl" href="${esc(p.file)}" download>
+          ${/\.pdf$/i.test(p.file)
+            ? `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>`
+            : `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="3" x2="12" y2="15"/></svg>`}
+          ${esc(p.fileLabel || "Download code")}
+        </a>` : ""}
       </div>
       <div class="proj-body">
         <div class="proj-desc">${paras}<div class="tools">${tags}</div></div>
