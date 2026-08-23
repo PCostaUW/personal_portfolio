@@ -430,9 +430,10 @@ const projects = [
     video: "https://youtube.com/embed/Qxzi6wqUWCk",
     videoLabel: "Video walkthrough · ~6 min",
     figures: [
-      {src: "", caption: "Figure placeholder — e.g. residual phase with and without prediction."}
+      {src: "fig1_single_sine.png", caption: "EOF prediction of a single 37 Hz tip/tilt vibration. The predictor tracks the true wavefront through the 3 ms servo lag, reducing residual RMS from 1.06 mas (no correction) and 0.73 mas (last-measurement) to 0.01 mas. The EOF spectrum collapses to two dominant modes — the sine and cosine of one tone."},
+      {src: "fig2_sum_sines.png", caption:"The same predictor applied to 20 superposed vibrations spanning 15–92 Hz. Residual RMS falls from 1.07 mas (none) and 1.22 mas (last-measurement) to 0.06 mas, and the singular-value spectrum shows a knee at 40 modes — two per vibration, as expected."}
     ],
-    zip: "assets/code/eof-predictive-control.zip"
+    zip: "AO_project.zip"
   },
   {
     entry: "Coursework · High-contrast imaging",
