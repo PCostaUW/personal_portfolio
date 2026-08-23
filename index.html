@@ -444,11 +444,9 @@ const projects = [
       "This project reduces a coronagraphic data cube of a nearby star with several candidate companions. The pipeline subtracts a per-frame background, builds a median PSF across the cube and subtracts it to remove the static speckle field, masks the coronagraphic core and first diffraction ring, then derotates each frame by its parallactic angle and median-combines so that companions co-add while residual speckles smear azimuthally. Recovered candidates are measured for angular separation and position angle with propagated astrometric uncertainties, and aperture photometry against a background annulus at matched radius gives the flux and signal-to-noise of the closest companion."
     ],
     tools: ["Python", "numpy", "scipy", "astropy", "angular differential imaging"],
-    video: "",
-    videoLabel: "Video walkthrough",
     figures: [
-      {src: "first_image.png", caption: "A single unprocessed frame from the coronagraphic data cube. The stellar PSF core and diffraction rings dominate the field, and the quasi-static speckle halo extends well beyond them. Two candidate companions are already faintly visible against the halo, but at this stage the speckle pattern sets the contrast floor."},
-      {src: "final_reduced_image.png", caption: "Final ADI reduction: per-frame background subtraction, median PSF subtraction across the cube, masking of the coronagraphic core and first diffraction ring, then derotation by parallactic angle and median combination. Companions co-add while residual speckles smear azimuthally. Circled candidates are the recovered point sources, each flanked by the negative lobes characteristic of classical ADI self-subtraction; the closest candidate to the star is marked in red."}
+      {src: "first_image.png", caption:"A single raw frame. The stellar halo and speckle pattern dominate; companions are barely distinguishable from the background."},
+      {src: "final_reduced_image.png", caption: "After classical ADI. Static speckles have been removed and the field derotated so companions co-add. 5 companions were recovered."}
     ],
     zip: ""
   },
