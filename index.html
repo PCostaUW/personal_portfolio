@@ -433,24 +433,24 @@ const projects = [
       {src: "fig1_single_sine.png", caption: "EOF prediction of a single 37 Hz tip/tilt vibration. The predictor tracks the true wavefront through the 3 ms servo lag, reducing residual RMS from 1.06 mas (no correction) and 0.73 mas (last-measurement) to 0.01 mas. The EOF spectrum collapses to two dominant modes — the sine and cosine of one tone."},
       {src: "fig2_sum_sines.png", caption:"The same predictor applied to 20 superposed vibrations spanning 15–92 Hz. Residual RMS falls from 1.07 mas (none) and 1.22 mas (last-measurement) to 0.06 mas, and the singular-value spectrum shows a knee at 40 modes — two per vibration, as expected."}
     ],
-    zip: "AO_project.zip"
+    file: "AO_project.zip",
+    fileLabel: "Download code (zip)"
   },
   {
     entry: "Coursework · High-contrast imaging",
     title: "Coronagraph simulation and post-processing",
     desc: [
-      "Placeholder description. Fourier-optics PSF simulation, coronagraph construction, and post-processing including angular differential imaging on archival data.",
-      "Replace with specifics on the instruments, datasets, and techniques."
+      "High-contrast imaging separates a faint companion from a star that outshines it by orders of magnitude, and the limiting factor is rarely photon noise — it is the quasi-static speckle pattern of the star itself. Angular differential imaging exploits the fact that in pupil-tracking mode the speckle field stays fixed to the telescope while the sky rotates, so a companion moves through the frame and the speckles do not.",
+      "This project reduces a coronagraphic data cube of a nearby star with several candidate companions. The pipeline subtracts a per-frame background, builds a median PSF across the cube and subtracts it to remove the static speckle field, masks the coronagraphic core and first diffraction ring, then derotates each frame by its parallactic angle and median-combines so that companions co-add while residual speckles smear azimuthally. Recovered candidates are measured for angular separation and position angle with propagated astrometric uncertainties, and aperture photometry against a background annulus at matched radius gives the flux and signal-to-noise of the closest companion."
     ],
-    tools: ["Python", "Jupyter"],
+    tools: ["Python", "numpy", "scipy", "astropy", "angular differential imaging"],
     video: "",
     videoLabel: "Video walkthrough",
     figures: [
-      {src: "", caption: "Figure placeholder."},
-      {src: "", caption: "Figure placeholder."},
-      {src: "", caption: "Figure placeholder."}
+      {src: "first_image.png", caption: "A single unprocessed frame from the coronagraphic data cube. The stellar PSF core and diffraction rings dominate the field, and the quasi-static speckle halo extends well beyond them. Two candidate companions are already faintly visible against the halo, but at this stage the speckle pattern sets the contrast floor."},
+      {src: "final_reduced_image.png", caption: "Final ADI reduction: per-frame background subtraction, median PSF subtraction across the cube, masking of the coronagraphic core and first diffraction ring, then derotation by parallactic angle and median combination. Companions co-add while residual speckles smear azimuthally. Circled candidates are the recovered point sources, each flanked by the negative lobes characteristic of classical ADI self-subtraction; the closest candidate to the star is marked in red."}
     ],
-    zip: "assets/code/hci-coronagraphy.zip"
+    zip: ""
   },
   {
     entry: "Research · Univ. of Washington",
