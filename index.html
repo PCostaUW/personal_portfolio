@@ -423,8 +423,8 @@ const projects = [
     entry: "Coursework · Adaptive optics",
     title: "Predictive wavefront control with empirical orthogonal functions",
     desc: [
-      "\Python reimplementation of the EOF predictive filter for adaptive optics wavefront control, following Guyon & Males (2017).",
-      "Replace with a short note on what the filter does and what you found."
+      "Adaptive optics corrects the wavefront it measured a moment ago, not the one arriving now. Between sensing and actuation there is a delay of a few milliseconds, and by the time the deformable mirror moves, the turbulence has changed. That servo-lag error sets a floor on achievable contrast, and it is largest exactly where high-contrast imaging needs performance most.",
+      "This project implements the empirical orthogonal function (EOF) predictive controller of Guyon & Males (2017) in Python and applies it to tip-tilt vibration prediction. The filter is trained on past wavefront history to estimate the next state rather than react to the last one, exploiting the fact that vibration from mount resonance and wind buffeting is periodic and therefore predictable in a way that atmospheric turbulence alone is not. Benchmarking against a classical integrator quantifies the recovered servo-lag error."
     ],
     tools: ["Python", "numpy"],
     video: "https://youtube.com/embed/Qxzi6wqUWCk",
