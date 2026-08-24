@@ -472,13 +472,10 @@ const projects = [
       "This project models XUV-driven hydrodynamic escape for terrestrial planets in the continuously habitable zone, across host stars from 0.3 to 1.0 M\u2609 and planetary cores from 0.1 to 2.0 M\u2295 with envelopes set at 0.5% of core mass. Stellar XUV histories come from the MORS rotation-evolution model, orbital separations from a habitable zone defined to persist from 100 Myr to 5 Gyr, and planetary radii from the Chen & Kipping mass\u2013radius relation; mass-loss rates follow the energy-limited approximation. Because XUV flux scales inversely with the square of orbital separation, proximity dominates luminosity: planets around low-mass stars sit close enough that escape outpaces the higher output of larger hosts. Initial stellar rotation matters as much as stellar mass \u2014 fast rotators sustain the saturated XUV phase longer, and at fixed stellar mass the rotation track alone can decide whether an envelope survives. The most rapid stripping occurs for the smallest planets around low-mass, fast-rotating stars, while super-Earths retain their envelopes across most of the parameter space."
     ],
     tools: ["Python", "MORS", "Energy-limited escape", "Stellar evolution"],
-    video: "",
-    videoPending: true,
-    videoLabel: "Video walkthrough",
     figures: [
       {src: "CHZ.png", caption: "Continuously habitable zone across 71 stars from 0.3 to 1.0 M\u2609, defined by the overlap of the habitable zone at 100 Myr and 5 Gyr. The central line in the bottom figure gives the orbital separations used throughout."},
-      {src: "", caption: "Atmospheric mass retention as a function of stellar mass and age for the slowest, median, and fastest rotators. Faster rotation expands the region of total atmospheric loss."},
-      {src: "", caption: "Ages at 95% atmospheric mass loss for sub-Earths from 0.1 to 1.0 M\u2295, showing that lower-mass planets are stripped earlier at every stellar mass."}
+      {src: "filled_contour.png", caption: "Atmospheric mass retention as a function of stellar mass and age for the slowest, median, and fastest rotators. Faster rotation expands the region of total atmospheric loss."},
+      {src: "95_contours.png", caption: "Ages at 95% atmospheric mass loss for sub-Earths from 0.1 to 1.0 M\u2295, showing that lower-mass planets are stripped earlier at every stellar mass."}
     ],
     file: "first_research_proj.pdf",
     fileLabel: "Download paper (PDF)"
