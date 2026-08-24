@@ -464,20 +464,24 @@ const projects = [
     file: "Costa - DTL-B Poster Proj.png",
     fileLabel: "Download poster (PNG)"
   },
-  {
-    entry: "Research · Leiden",
-    title: "Photoevaporation of primordial atmospheres",
+    {
+    entry: "Research · Leiden · 2025",
+    title: "Photoevaporation of primordial atmospheres in the habitable zone",
     desc: [
-      "Placeholder description. Research-track project on the photoevaporation of primordial planetary atmospheres.",
-      "Replace with a couple of sentences on the modeling and results."
+      "A planet's first atmosphere is the wrong one. Primordial envelopes are hydrogen and helium captured from the protoplanetary disk, and life as we know it requires the secondary atmosphere that replaces them. That replacement cannot begin until the first envelope is gone, so the question of when a terrestrial planet loses its H/He becomes a question about how much time remains for habitability.",
+      "This project models XUV-driven hydrodynamic escape for terrestrial planets in the continuously habitable zone, across host stars from 0.3 to 1.0 M\u2609 and planetary cores from 0.1 to 2.0 M\u2295 with envelopes set at 0.5% of core mass. Stellar XUV histories come from the MORS rotation-evolution model, orbital separations from a habitable zone defined to persist from 100 Myr to 5 Gyr, and planetary radii from the Chen & Kipping mass\u2013radius relation; mass-loss rates follow the energy-limited approximation. Because XUV flux scales inversely with the square of orbital separation, proximity dominates luminosity: planets around low-mass stars sit close enough that escape outpaces the higher output of larger hosts. Initial stellar rotation matters as much as stellar mass \u2014 fast rotators sustain the saturated XUV phase longer, and at fixed stellar mass the rotation track alone can decide whether an envelope survives. The most rapid stripping occurs for the smallest planets around low-mass, fast-rotating stars, while super-Earths retain their envelopes across most of the parameter space."
     ],
-    tools: ["Python"],
+    tools: ["Python", "MORS", "Energy-limited escape", "Stellar evolution"],
     video: "",
+    videoPending: true,
     videoLabel: "Video walkthrough",
     figures: [
-      {src: "", caption: "Figure placeholder."}
+      {src: "", caption: "Continuously habitable zone across 71 stars from 0.3 to 1.0 M\u2609, defined by the overlap of the habitable zone at 100 Myr and 5 Gyr. The central line gives the orbital separations used throughout."},
+      {src: "", caption: "Atmospheric mass retention as a function of stellar mass and age for the slowest, median, and fastest rotators. Faster rotation expands the region of total atmospheric loss."},
+      {src: "", caption: "Ages at 95% atmospheric mass loss for sub-Earths from 0.1 to 1.0 M\u2295, showing that lower-mass planets are stripped earlier at every stellar mass."}
     ],
-    zip: "assets/code/photoevaporation.zip"
+    file: "photoevaporation_paper.pdf",
+    fileLabel: "Download paper (PDF)"
   },
   {
     entry: "Research · Univ. of Washington",
